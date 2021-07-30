@@ -161,24 +161,72 @@ basicNN + geom_point() + geom_smooth(method=lm)
 The equation formula for a line is y-ax=b. This is regression line that has been drawn used this formula. The equation for SIMS explained by this line is: SIMS = -4.1 + 0.45 * GRIP
 
 
-
 ## Model 3 SIM~ARM+GRIP
 
 ### Numerical results (cor)
 
-`
+```{r}
+cor(SIMS~GRIP + ARM,data=data)
+```
   
 ### Inferential  (Build 2-dimentional model.3)
 
+````{r}
+model.3 <- lm(SIMS~GRIP + ARM,data=data)
+summary.lm(model.3)
+```
+
+The residual standard error is the variation in all parts. 
+The bigger the Adjusted R square the better the model. The multiple R-squared is always a little bit Bigger than the Adjusted R-squared. The bigger the Adjusted R-square the more you reduce the error. 
+
+The models must be nested. That means all the independent variables in one model are also in the other models
+Model 2 is nested in model 3. Model 1 is nested in model 3. Model 1 and 2 are not nested because GRIP is not nested in ARM.
+
+
 #### predict model.3 at target point
   
+```{r}
+predict(model.3, newdata, interval = "prediction", level = .99)
+```
+
 
 ## Comparing nested models ANOVA Test
 
 ### Model.1 vs Model.3
+
+```{r}
+anova(model.1,model.3)
+```
+
+The p-value is 0.0000049 . These results are unlikely to occur by chance.The null hypothesis is rejected in favor of the alternative.  
+The residual degrees of freedom are 145. All the errors add up together to 217. The errors were reduced by 29.45. 
+Model 2 is a better model than model 1 because more errors were corrected. 
+
+Model1 and model3 are nested.
+
+
 ### Model.2 vs Model.3
 
+```{r}
+anova(model.2,model.3)
+```
+
+The p-value based on these results is 0.000000001495. These results are unlikely to occur by chance. 
+
+Model 2 is nested in model 3. The components in model 2 are also in model 3. 
+
+
 ## Informally compare Model.1 with model.2
+
+```{r}
+anova(model.1,model.2)
+```
+
+0.467 is the adjusted R-squared for SIMS-ARM
+
+0.4053 is the adjusted R-squared for SIMS-GRIP
+How much the models are able to guess the average. 
+
 
 
 
