@@ -120,14 +120,46 @@ The points in this plot are more closely knit.
 
 ### Numerical results 
 
+```{r}
+cor(SIMS~GRIP,data=data)
+```
+
+The value is 0.63. The higher the correlation the closer the points are to each other. This correlation is a bit smaller tham the previous correlation between ARM. 
+
 
 ### Inferential  (Build model.2)
   
+```{r}
+model.2 <- lm(SIMS~GRIP,data=data)
+summary.lm(model.2)
+```
+
+The adjusted R-squared is 0.4053. Previously the number was 0.409 
+small standard error makes for a successful model. The model is not as good as the model with ARM, (model 1) because the standard deviation is larger. Notice the difference between the Multiple R-squared and the Adjust R-squared.
+
 
 #### predict model.2 at target point
 
+```{r}
+predict(model.2, newdata, interval = "prediction", level = .99)
+predict(model.2, newdata, interval = "confidence", level = .99)
+```
+
+The first line is the prediction interval, the second line is the confidence interval.
+The prediction interval is predicting where the next point will be.
+The confidence interval is a prediction of where the line goes. The numbers range from -0.8 to -0.27. It is confidence on the fit of the line. 
+The upper and lower prediction represent the threshold
+The prediction interval says that we are 95% confident that the predication using this model is within these bounds.
+
+
 #### now add the model fit to our plot for model.2
   
+```{r}
+basicNN + geom_point() + geom_smooth(method=lm)
+``` 
+
+The equation formula for a line is y-ax=b. This is regression line that has been drawn used this formula. The equation for SIMS explained by this line is: SIMS = -4.1 + 0.45 * GRIP
+
 
 
 ## Model 3 SIM~ARM+GRIP
