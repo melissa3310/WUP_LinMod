@@ -82,10 +82,40 @@ This is a prediction interval. How far does one point vary from the other if you
 
 #### scatterplot with model fit
   
+```{r}
+basicNN + geom_point() + geom_smooth(method=lm)
+``` 
+
+All the data traveling up are part of the particular distribution.
+Each point along the arm axis, the mean of the distribution is where the line falls. The spread of the dots of the standard deviation of the normal distribution. Each pt of the line is a representative of one of the out puts.
+
+Every point displayed in this plot is an error. Take the distance between each point and square it. The Sum of all the squared errors is the average mean error. Take the value of the average from every dot, and then add that up. 
+
+The equation formula for a line is y=axtb. This regression line that has been drawn used this formula. The equation for sims explained by this line is:
+SIMS = -4.1 + .05 * ARM
+
+To find the value of SIMS multiply the intercept, -4.095160 and the arm value, 0.054563. 
+
+Multiply 200 by ARM, 0.054563 which equals 5.45. Then, add the intercept which is about -4.1. 
+
+To figure out what value on the y-intercept passes over the 100 on the x-axis, refer to the value included. It looks like the value of the y-intercept would be around 1.25, give or take a few. 
+
 
 ## Model 2 SIM~GRIP
 
+
 ### Now add in scatterplot
+
+```{r}
+basicNN <- ggplot(data,aes(y=SIMS,x=GRIP))
+```
+
+```{r}
+basicNN + geom_point()
+```
+
+The points in this plot are more closely knit. 
+
 
 
 ### Numerical results 
